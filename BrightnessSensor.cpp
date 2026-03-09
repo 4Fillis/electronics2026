@@ -2,8 +2,8 @@
 #define BRIGHTNESSSENSOR A0 //VP pin
 void setup()
 {
-pinMode(BRIGHTNESSSENSOR, INPUT);
-Serial.begin(115200);
+    pinMode(BRIGHTNESSSENSOR, INPUT);
+    Serial.begin(115200);
 }
 void loop()
 {
