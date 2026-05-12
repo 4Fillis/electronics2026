@@ -1,4 +1,44 @@
 //add temt, bmp, tft, moisture sensor (x2), and ds3231 libraries
+//libraries
+//tft 
+#include <Adafruit_GFX.h>    // Core graphics library
+#include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
+#include <SPI.h>
+
+//tft pins setting
+#if defined(ARDUINO_FEATHER_ESP32) // Feather Huzzah32
+  #define TFT_CS   15
+  #define TFT_DC   27
+  #define TFT_RST  26 //changed from 33
+
+  #define TFT_MOSI 13   // HSPI MOSI
+  #define TFT_SCLK 14   // HSPI SCLK
+
+
+#elif defined(ESP8266)
+  #define TFT_CS   15
+  #define TFT_DC   27
+  #define TFT_RST  26 //changed from 33
+
+  #define TFT_MOSI 13   // HSPI MOSI
+  #define TFT_SCLK 14   // HSPI SCLK
+
+
+#else
+  // For the breakout board, you can use any 2 or 3 pins.
+  // These pins will also work for the 1.8" TFT shield.
+
+  #define TFT_CS   15
+  #define TFT_DC   27
+  #define TFT_RST  26 //changed from 33 Or set to -1 and connect to Arduino RESET pin
+
+  #define TFT_MOSI 13   // HSPI MOSI
+  #define TFT_SCLK 14   // HSPI SCLK
+
+#endif
+Adafruit_ST7789 tft = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCLK, TFT_RST);
+
+
 
 //declare pins
 const int flowsens = 26;
@@ -17,6 +57,8 @@ float lightsens = 36;
 //add ds3231
 
 void setup() {
+  //tft initialiser
+  tft.init(240, 320);  // Init ST7789 320x240
   //set pin modes
   pinMode(flowsens, INPUT);
   pinMode(lvlsens, INPUT);
